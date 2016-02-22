@@ -81,13 +81,15 @@
                             <constraint firstAttribute="trailing" secondItem="T3r-Lj-cC4" secondAttribute="trailing" constant="5" id="yB7-xZ-OIB"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="QOC-hB-tB5"/>
                     <connections>
                         <outlet property="anonymeButton" destination="T3r-Lj-cC4" id="eZr-DN-Zlw"/>
                         <outlet property="attachButton" destination="cY0-NK-hah" id="wU4-hD-OeG"/>
                         <outlet property="attachButtonBottomConstraint" destination="Tdz-n5-6gi" id="DTN-Yk-qjQ"/>
+                        <outlet property="attachedImageView" destination="gZp-IL-bOx" id="RDG-lO-jFa"/>
                         <outlet property="contentScrollView" destination="Rbh-CB-vVk" id="c1x-BX-y4H"/>
                         <outlet property="headerHeightConstraint" destination="tMo-T0-Xl9" id="GWL-WZ-AQN"/>
+                        <outlet property="imageHolderView" destination="tyO-IP-irc" id="Qco-Pa-Mod"/>
+                        <outlet property="scannerView" destination="iq1-0Q-AB5" id="wgK-wF-8U1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet var imageHolderView: UIView!
     @IBOutlet weak var anonymeButton: UIButton!
     @IBOutlet weak var headerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var attachButtonBottomConstraint: NSLayoutConstraint!
@@ -18,7 +19,8 @@ class ViewController: UIViewController {
     var placeholderLabel : UILabel!
     var scrollViewChild : UIView!
     var textView: UITextView!
-    var attachedImageView: UIImageView!
+    @IBOutlet weak var scannerView: UIView!
+    @IBOutlet weak var attachedImageView: UIImageView!
     var keyBoardHeight: CGFloat = 0.0
     let imageTextViewOffset:CGFloat = 10.0
     var header: COATextViewHeader!
