@@ -85,50 +85,11 @@
                         <outlet property="anonymeButton" destination="T3r-Lj-cC4" id="eZr-DN-Zlw"/>
                         <outlet property="attachButton" destination="cY0-NK-hah" id="wU4-hD-OeG"/>
                         <outlet property="attachButtonBottomConstraint" destination="Tdz-n5-6gi" id="DTN-Yk-qjQ"/>
-                        <outlet property="attachedImageView" destination="gZp-IL-bOx" id="RDG-lO-jFa"/>
                         <outlet property="contentScrollView" destination="Rbh-CB-vVk" id="c1x-BX-y4H"/>
                         <outlet property="headerHeightConstraint" destination="tMo-T0-Xl9" id="GWL-WZ-AQN"/>
-                        <outlet property="imageHolderView" destination="tyO-IP-irc" id="Qco-Pa-Mod"/>
-                        <outlet property="scannerView" destination="iq1-0Q-AB5" id="wgK-wF-8U1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="tyO-IP-irc">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gZp-IL-bOx">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
-                        </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b7Q-it-d3L">
-                            <rect key="frame" x="280" y="0.0" width="40" height="40"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="40" id="NWE-RS-4PG"/>
-                                <constraint firstAttribute="height" constant="40" id="URV-6I-aFd"/>
-                            </constraints>
-                            <state key="normal" image="remove"/>
-                        </button>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iq1-0Q-AB5">
-                            <rect key="frame" x="0.0" y="0.0" width="1" height="128"/>
-                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="1" id="ewH-9W-gmm"/>
-                            </constraints>
-                        </view>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="trailing" secondItem="b7Q-it-d3L" secondAttribute="trailing" id="1sd-8d-mf6"/>
-                        <constraint firstAttribute="bottom" secondItem="gZp-IL-bOx" secondAttribute="bottom" id="3hi-ak-dJm"/>
-                        <constraint firstAttribute="bottom" secondItem="iq1-0Q-AB5" secondAttribute="bottom" id="4Ts-AZ-mcW"/>
-                        <constraint firstItem="iq1-0Q-AB5" firstAttribute="top" secondItem="tyO-IP-irc" secondAttribute="top" id="82h-1N-2x1"/>
-                        <constraint firstItem="gZp-IL-bOx" firstAttribute="top" secondItem="tyO-IP-irc" secondAttribute="top" id="CIX-CE-iG7"/>
-                        <constraint firstItem="b7Q-it-d3L" firstAttribute="top" secondItem="tyO-IP-irc" secondAttribute="top" id="G52-9g-ZDC"/>
-                        <constraint firstItem="gZp-IL-bOx" firstAttribute="leading" secondItem="tyO-IP-irc" secondAttribute="leading" id="NjY-7D-PwN"/>
-                        <constraint firstItem="iq1-0Q-AB5" firstAttribute="leading" secondItem="tyO-IP-irc" secondAttribute="leading" id="Xmq-Zj-Cz7"/>
-                        <constraint firstAttribute="trailing" secondItem="gZp-IL-bOx" secondAttribute="trailing" id="gSd-gX-vrx"/>
-                    </constraints>
-                </view>
             </objects>
             <point key="canvasLocation" x="753" y="453"/>
         </scene>
@@ -222,7 +183,4 @@
             <point key="canvasLocation" x="1202" y="421"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="remove" width="14" height="14"/>
-    </resources>
 </document>

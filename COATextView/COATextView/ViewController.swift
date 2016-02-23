@@ -10,7 +10,6 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet var imageHolderView: UIView!
     @IBOutlet weak var anonymeButton: UIButton!
     @IBOutlet weak var headerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var attachButtonBottomConstraint: NSLayoutConstraint!
@@ -19,12 +18,13 @@ class ViewController: UIViewController {
     var placeholderLabel : UILabel!
     var scrollViewChild : UIView!
     var textView: UITextView!
-    @IBOutlet weak var scannerView: UIView!
-    @IBOutlet weak var attachedImageView: UIImageView!
+    var attachedImageView: UIImageView!
+    var attachImageViewHolder: UIView!
     var keyBoardHeight: CGFloat = 0.0
     let imageTextViewOffset:CGFloat = 10.0
     var header: COATextViewHeader!
     let embedHeaderSegue = "embedHeaderSegue"
+    var baby = false
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -103,23 +103,45 @@ class ViewController: UIViewController {
     func textViewShouldBecomeFirstResponder(sender:UITapGestureRecognizer){
         textView.becomeFirstResponder()
     }
+    func removeImageView(sender:UIButton){
+        attachImageViewHolder.removeFromSuperview()
+        attachedImageView = nil
+        scrollViewChild.frame.size.height = textView.frame.height
+        contentScrollView.contentSize.height = scrollViewChild.frame.size.height
+    }
     @IBAction func attachAnImage(sender:UIButton){
-        if attachedImageView == nil {
-            let imageToAttach = UIImage(named: "baby")
-            let ratio = (imageToAttach?.size.width)! / scrollViewChild.frame.width
-            let height = (imageToAttach?.size.height)! / ratio
-            scrollViewChild.frame.size.height = height + textView.frame.height + imageTextViewOffset
-            attachedImageView = UIImageView(frame: CGRect(x: 0, y: textView.frame.height + imageTextViewOffset, width: scrollViewChild.frame.width, height: height))
+        var imageName = "baby"
+        if(baby){
+            imageName = "baby1"
+        }
+        baby = !baby
+        let imageToAttach = UIImage(named: imageName)
+        let ratio = (imageToAttach?.size.width)! / scrollViewChild.frame.width
+        let height = (imageToAttach?.size.height)! / ratio
+        scrollViewChild.frame.size.height = height + textView.frame.height + imageTextViewOffset
+        if attachImageViewHolder == nil {
+            //attach holder is nil so we should unitialize it
+            attachImageViewHolder = UIView(frame: CGRect(x: 0, y: textView.frame.height + imageTextViewOffset, width: scrollViewChild.frame.width, height: height))
+            //AttachedImageView take all attachHolder Frame
+            attachedImageView = UIImageView(frame: attachImageViewHolder.frame)
+            attachedImageView.frame.origin = CGPoint(x: 0, y: 0)
             attachedImageView.image = imageToAttach
             attachedImageView.contentMode = .ScaleAspectFit
-            scrollViewChild.addSubview(attachedImageView)
+            //Add the attachedImageView as child to attachImageView holder
+            attachImageViewHolder.addSubview(attachedImageView)
+            //Add remove Image Button
+            let removeImageButton = UIButton(frame: CGRect(x: attachedImageView.frame.width - 40, y: 0, width: 40, height: 40))
+            removeImageButton.setImage(UIImage(named: "remove"), forState: .Normal)
+            removeImageButton.addTarget(self, action: Selector("removeImageView:"), forControlEvents: .TouchUpInside)
+            attachImageViewHolder.addSubview(removeImageButton)
+            scrollViewChild.addSubview(attachImageViewHolder)
             attachedImageView.userInteractionEnabled = true
             let tapGesture = UITapGestureRecognizer(target: self, action: Selector("textViewShouldBecomeFirstResponder:"))
             attachedImageView.addGestureRecognizer(tapGesture)
         }else{
-            attachedImageView.removeFromSuperview()
-            attachedImageView = nil
-            scrollViewChild.frame.size.height = textView.frame.height
+            attachImageViewHolder.frame.size.height = height
+            attachedImageView.frame.size.height = height
+            attachedImageView.image = imageToAttach
         }
         contentScrollView.contentSize.height = scrollViewChild.frame.size.height
     }
@@ -129,6 +151,14 @@ class ViewController: UIViewController {
             header.delegate = self
         }
     }
+    func showHiddenTextView(){
+        let scrollBottom = UIScreen.mainScreen().bounds.size.height - textView.frame.height - contentScrollView.frame.origin.y
+        let hiddenRegion = attachButton.frame.height + keyBoardHeight
+        if(scrollBottom < hiddenRegion){
+            let offset = hiddenRegion - scrollBottom
+            contentScrollView.contentOffset.y = offset
+        }
+    }
 }
 
 extension ViewController : UITextViewDelegate{
@@ -136,21 +166,16 @@ extension ViewController : UITextViewDelegate{
         placeholderLabel.hidden = !textView.text.isEmpty
         let heightTextView = textView.contentSize.height
         var attachedImageViewHeight: CGFloat = 0.0
-        if attachedImageView != nil{
-            attachedImageViewHeight = attachedImageView.frame.height + imageTextViewOffset
+        if attachImageViewHolder != nil{
+            attachedImageViewHeight = attachImageViewHolder.frame.height + imageTextViewOffset
         }
         scrollViewChild.frame.size.height = attachedImageViewHeight + heightTextView
         contentScrollView.contentSize.height = scrollViewChild.frame.size.height
         textView.frame.size.height = heightTextView
-        if attachedImageView != nil {
-            attachedImageView.frame.origin.y = heightTextView + imageTextViewOffset
+        if attachImageViewHolder != nil {
+            attachImageViewHolder.frame.origin.y = heightTextView + imageTextViewOffset
         }
-        let scrollBottom = UIScreen.mainScreen().bounds.size.height - textView.frame.height - contentScrollView.frame.origin.y
-        let hiddenRegion = attachButton.frame.height + keyBoardHeight
-        if(scrollBottom < hiddenRegion){
-            let offset = hiddenRegion - scrollBottom
-            contentScrollView.contentOffset.y = offset
-        }
+        showHiddenTextView()
     }
 }
 
@@ -163,6 +188,10 @@ extension ViewController: COATextViewHeaderProtocol{
         }
         UIView.animateWithDuration(0.5, animations: {
             self.view.layoutIfNeeded()
+            },completion: {(completed)->Void in
+                if(self.textView.isFirstResponder()){
+                     self.showHiddenTextView()
+                }
         })
     }
 }
