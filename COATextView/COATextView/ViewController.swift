@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     @IBInspectable var anonymeViewHeight:CGFloat = 44.0
     @IBInspectable var attachButtonLeftMargin:CGFloat = 10.0
     @IBInspectable var inbetweenAttachButtonMargin:CGFloat = 10.0
-    @IBInspectable var  imageTextViewOffset:CGFloat = 10.0
+    @IBInspectable var imageTextViewOffset:CGFloat = 10.0
     @IBInspectable var objectTextFieldFlaceholder:String = "Le titre de votre question"
     @IBInspectable var contentTextPlaceHolder:String = "Ecrivez ici ..."
     @IBInspectable var objectTextFieldFontSize:CGFloat = 15.0
@@ -28,6 +28,7 @@ class ViewController: UIViewController {
     @IBInspectable var removeAnonymeButtonImage:UIImage!
     @IBInspectable var removeImaeButtonImage:UIImage!
     @IBInspectable var anonymeTextColor:UIColor = UIColor.blackColor()
+    @IBInspectable var anonymeBgColor:UIColor = UIColor.grayColor()
     @IBInspectable var contentTextColor:UIColor = UIColor.blackColor()
     @IBInspectable var titleTextColor:UIColor = UIColor.blackColor()
     var anonymHolderView: UIView!
@@ -134,6 +135,8 @@ class ViewController: UIViewController {
         textView = PlaceholderTextView(frame: CGRect(x: 10, y: 0, width: scrollViewChild.frame.width - 20, height: scrollViewChild.frame.height))
         textView.font = UIFont(name: contentTextViewFontName, size: contentTextViewFontSize)
         textView.placeholder = contentTextPlaceHolder
+        textView.textColor = contentTextColor
+        textView.tintColor = contentTextColor
         textView.editable = true
         //Add textView to scrollViewChild
         scrollViewChild.addSubview(textView)
@@ -200,13 +203,16 @@ class ViewController: UIViewController {
         objectTextField.font = UIFont.systemFontOfSize(15)
         
         objectTextField.placeholder = objectTextFieldFlaceholder
+        objectTextField.attributedPlaceholder = NSAttributedString(string:objectTextField.placeholder!, attributes: [NSForegroundColorAttributeName: titleTextColor])
+        objectTextField.textColor = titleTextColor
+        objectTextField.tintColor = titleTextColor
         anonymeHeaderView.addSubview(setupAnonymeHolder())
         anonymeHeaderView.addSubview(objectTextField)
         return anonymeHeaderView
     }
     func setupAnonymeHolder()->UIView{
         anonymHolderView = UIView()
-        anonymHolderView.backgroundColor = UIColor.grayColor()
+        anonymHolderView.backgroundColor = anonymeBgColor
         anonymHolderView.translatesAutoresizingMaskIntoConstraints = false
         removeAnonymeButton = UIButton()
         removeAnonymeButton.translatesAutoresizingMaskIntoConstraints = false
@@ -220,6 +226,8 @@ class ViewController: UIViewController {
         
         anonymeTextLabel.translatesAutoresizingMaskIntoConstraints = false
         anonymeTextLabel.text = anonymeTexLabelPlaceHolder
+        anonymeTextLabel.textColor = anonymeTextColor
+        anonymeTextLabel.tintColor = anonymeTextColor
         anonymeTextLabel.sizeToFit()
         anonymHolderView.addSubview(anonymeTextLabel)
         anonymHolderView.addSubview(removeAnonymeButton)

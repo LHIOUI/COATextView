@@ -27,6 +27,18 @@
                         <userDefinedRuntimeAttribute type="image" keyPath="attachButtonImage" value="attachImage"/>
                         <userDefinedRuntimeAttribute type="image" keyPath="removeAnonymeButtonImage" value="remove"/>
                         <userDefinedRuntimeAttribute type="image" keyPath="removeImaeButtonImage" value="remove"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="anonymeTextColor">
+                            <color key="value" white="0.0" alpha="0.73936338680000002" colorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="anonymeBgColor">
+                            <color key="value" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="0.6318359375" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="contentTextColor">
+                            <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.66543496621621623" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="titleTextColor">
+                            <color key="value" red="0.22352941179999999" green="0.23921568630000001" blue="0.42352941179999998" alpha="0.87082981418918914" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
