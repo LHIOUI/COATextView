@@ -27,6 +27,9 @@ class ViewController: UIViewController {
     @IBInspectable var attachButtonImage:UIImage!
     @IBInspectable var removeAnonymeButtonImage:UIImage!
     @IBInspectable var removeImaeButtonImage:UIImage!
+    @IBInspectable var anonymeTextColor:UIColor = UIColor.blackColor()
+    @IBInspectable var contentTextColor:UIColor = UIColor.blackColor()
+    @IBInspectable var titleTextColor:UIColor = UIColor.blackColor()
     var anonymHolderView: UIView!
     var anonymeButton: UIButton!
     var headerHeightConstraint: NSLayoutConstraint!
@@ -120,7 +123,10 @@ class ViewController: UIViewController {
         NSLayoutConstraint(item: contentScrollView, attribute: .Bottom, relatedBy: .Equal, toItem: attachHolderView, attribute: .Top, multiplier: 1.0, constant: 0.0).active = true
         self.updateViewConstraints()
     }
-    func setupScrollChild(){
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+    }
+    func setupScrollChild()->UIView{
         //Init scrollViewChild
         let screenSize = UIScreen.mainScreen().bounds.size
         scrollViewChild = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 30))
@@ -131,8 +137,6 @@ class ViewController: UIViewController {
         textView.editable = true
         //Add textView to scrollViewChild
         scrollViewChild.addSubview(textView)
-        // Add scrollViewChild to scrollView
-        contentScrollView.addSubview(scrollViewChild)
         //Add placeholderLabel
         textView.delegate = self
         scrollViewChild.frame.size.height = textView.frame.height
@@ -141,6 +145,7 @@ class ViewController: UIViewController {
         scrollViewChild.addGestureRecognizer(tapGesture)
         contentScrollView.userInteractionEnabled = true
         contentScrollView.addGestureRecognizer(tapGesture)
+        return scrollViewChild
     }
     func setupAttachView()->UIView{
         //Setup attachHolderView
@@ -168,10 +173,23 @@ class ViewController: UIViewController {
         
         return attachHolderView
     }
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        adjustContentScrollViewContentInset()
+    }
+    func adjustContentScrollViewContentInset()
+    {
+        var contentInset = self.contentScrollView.contentInset
+        contentInset.bottom = 0.0
+        contentInset.top = 0.0
+        contentScrollView.contentInset = contentInset
+        contentScrollView.scrollIndicatorInsets = contentInset
+    }
+    
     func setupScrollView()->UIScrollView{
         contentScrollView = UIScrollView()
         contentScrollView.translatesAutoresizingMaskIntoConstraints = false
-        setupScrollChild()
+        contentScrollView.addSubview(setupScrollChild())
         return contentScrollView
     }
     func setupAnonymeHeader()->UIView{
@@ -231,6 +249,7 @@ class ViewController: UIViewController {
             self.view.layoutIfNeeded()
         }
     }
+    
     func removeAnonyme(sender: AnyObject) {
         headerHeightConstraint.constant = 44.0
         anonyme = false
@@ -240,6 +259,7 @@ class ViewController: UIViewController {
             self.view.layoutIfNeeded()
         })
     }
+    
     override func viewWillDisappear(animated: Bool) {
         super.viewWillAppear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self)
