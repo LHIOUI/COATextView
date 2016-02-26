@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  COATextViewController.swift
 //  COATextView
 //
 //  Created by coyote on 18/02/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class COATextViewController: UIViewController {
     @IBInspectable var attachButtonHolderHeight:CGFloat = 40.0
     @IBInspectable var anonymeViewHeight:CGFloat = 44.0
     @IBInspectable var attachButtonLeftMargin:CGFloat = 10.0
@@ -351,7 +351,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController : UITextViewDelegate{
+extension COATextViewController : UITextViewDelegate{
     func textViewDidChange(textView: UITextView) {
         let heightTextView = textView.contentSize.height
         var attachedImageViewHeight: CGFloat = 0.0
